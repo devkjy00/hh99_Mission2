@@ -103,7 +103,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public FormLoginAuthProvider formLoginAuthProvider() {
-        return new FormLoginAuthProvider();
+        return new FormLoginAuthProvider(new BCryptPasswordEncoder());
     }
 
 
@@ -118,13 +118,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("GET,/h2-console/**");
         skipPathList.add("POST,/h2-console/**");
         // 회원 관리 API 허용
-        skipPathList.add("GET,/user/**");
-        skipPathList.add("POST,/user/signup");
+        skipPathList.add("GET,/api/**");
+        skipPathList.add("POST,/api/signup");
 
         skipPathList.add("GET,/");
         skipPathList.add("GET,/basic.js");
-
-        skipPathList.add("GET,/favicon.ico");
 
         FilterSkipMatcher matcher = new FilterSkipMatcher(
                 skipPathList,

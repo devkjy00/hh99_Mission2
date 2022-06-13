@@ -14,7 +14,6 @@ public class FormLoginSuccessHandler extends SavedRequestAwareAuthenticationSucc
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response,
                                         final Authentication authentication) {
-        System.out.println("FromLoginSuccessHandler");
 
         final UserDetailsImpl userDetails = ((UserDetailsImpl) authentication.getPrincipal());
 

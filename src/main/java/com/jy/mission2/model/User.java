@@ -1,8 +1,11 @@
 package com.jy.mission2.model;
 
+import com.jy.mission2.dto.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
@@ -12,7 +15,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "USER_TABLE")
 public class User {
-    // ID가 자동으로 생성 및 증가합니다.
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
@@ -28,10 +31,10 @@ public class User {
 
 
 
-    public User(String nickname, String password, String email) {
-        this.nickname = nickname;
-        this.password = password;
-        this.email = email;
+    public User(UserDto requestDto){
+        this.nickname = requestDto.getNickname();
+        this.password = requestDto.getPassword();
+        this.email = requestDto.getEmail();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.jy.mission2;
 
+import com.jy.mission2.dto.UserDto;
 import com.jy.mission2.model.User;
 import com.jy.mission2.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -18,7 +19,8 @@ public class Mission2Application {
     @Bean
     public CommandLineRunner demo(UserRepository userRepository) {
         return (args) -> {
-            userRepository.save(new User("username", "password", "email"));
+
+            userRepository.save(new User(new UserDto("username", "password", "email")));
 
             System.out.println("init repository");
         };
