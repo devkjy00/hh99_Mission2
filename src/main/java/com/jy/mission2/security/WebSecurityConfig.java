@@ -38,8 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .permitAll()
                 .and()
-                .exceptionHandling()
-                .accessDeniedPage("/forbidden.html");
+                    .exceptionHandling()
+                    .accessDeniedPage("/forbidden.html");
 
 
     }
