@@ -35,7 +35,7 @@ public class FormLoginFilter extends UsernamePasswordAuthenticationFilter {
             throw new RuntimeException("username, password");
         }
 
-        setDetails(request, authRequest); // 생성된 토큰에 상세 정보를 요청객체로 설정
+        setDetails(request, authRequest);
         return this.getAuthenticationManager().authenticate(authRequest);
 
     }
