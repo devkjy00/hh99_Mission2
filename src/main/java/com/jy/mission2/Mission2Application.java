@@ -3,9 +3,11 @@ package com.jy.mission2;
 import com.jy.mission2.dto.UserDto;
 import com.jy.mission2.model.User;
 import com.jy.mission2.repository.UserRepository;
+import com.jy.mission2.response.Message;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -24,6 +26,7 @@ public class Mission2Application {
 //            userRepository.save((new UserDto("email", "nickname", "password")
 //                    .getEncodedUser(new BCryptPasswordEncoder())));
 
+            System.out.println(Message.SUCCESS);
             System.out.println("init repository");
         };
     }

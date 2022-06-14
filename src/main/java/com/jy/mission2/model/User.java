@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "USER_TABLE")
+@Table(name = "user_table")
 public class User {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
