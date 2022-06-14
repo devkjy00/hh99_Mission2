@@ -21,7 +21,7 @@ public class Mission2Application {
     public CommandLineRunner demo(UserRepository userRepository) {
         return (args) -> {
 
-//            userRepository.save((new UserDto("username", "password", "email")
+//            userRepository.save((new UserDto("email", "nickname", "password")
 //                    .getEncodedUser(new BCryptPasswordEncoder())));
 
             System.out.println("init repository");

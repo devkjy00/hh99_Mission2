@@ -28,7 +28,7 @@ public class UserDto {
     @NotBlank
     private String password;
 
-    private String encodedPassword;
+//    private String encodedPassword;
 
     public User getEncodedUser(BCryptPasswordEncoder encoder){
         return User.builder()

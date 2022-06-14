@@ -4,6 +4,7 @@ import com.jy.mission2.model.User;
 import com.jy.mission2.repository.UserRepository;
 import com.jy.mission2.security.UserDetailsImpl;
 import com.jy.mission2.security.jwt.JwtDecoder;
+import com.jy.mission2.security.jwt.JwtPreProcessingToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,6 +39,6 @@ public class JWTAuthProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return false;
+        return JwtPreProcessingToken.class.isAssignableFrom(authentication);
     }
 }
