@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.jy.mission2.security.jwt.JwtTokenUtils.*;
@@ -17,7 +19,7 @@ import static com.jy.mission2.security.jwt.JwtTokenUtils.*;
 public class JwtDecoder {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    public String decodeUsername(String token){
+    public Map<String, String> decode(String token){
         DecodedJWT decodedJWT = isValidToken(token)
                 .orElseThrow(() -> new IllegalArgumentException("토큰이 유효하지 않습니다"));
 
@@ -29,11 +31,22 @@ public class JwtDecoder {
            throw new IllegalArgumentException("토큰이 유효하지 않습니다 ");
         }
 
-        String username = decodedJWT
-                .getClaim(CLAIM_USER_NAME)
+        Map<String, String> jwtData = new HashMap<>();
+        String email = decodedJWT
+                .getClaim(CLAIM_USER_EMAIL)
                 .asString();
+        jwtData.put(CLAIM_USER_EMAIL, email);
 
-        return username;
+        String id = String.valueOf(decodedJWT
+                .getClaim(CLAIM_USER_ID)
+                .asLong());
+        jwtData.put(CLAIM_USER_ID, id);
+
+        String nickname = decodedJWT
+                .getClaim(CLAIM_USER_NICK)
+                .asString();
+        jwtData.put(CLAIM_USER_NICK, nickname);
+        return jwtData;
     }
 
     private Optional<DecodedJWT> isValidToken(String token){
