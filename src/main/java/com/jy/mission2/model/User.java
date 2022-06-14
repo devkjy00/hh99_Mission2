@@ -1,9 +1,7 @@
 package com.jy.mission2.model;
 
 import com.jy.mission2.dto.UserDto;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -12,7 +10,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "USER_TABLE")
 public class User {
 
@@ -29,12 +29,5 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-
-
-    public User(UserDto requestDto){
-        this.nickname = requestDto.getNickname();
-        this.password = requestDto.getPassword();
-        this.email = requestDto.getEmail();
-    }
 
 }

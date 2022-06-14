@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class Mission2Application {
@@ -20,7 +21,8 @@ public class Mission2Application {
     public CommandLineRunner demo(UserRepository userRepository) {
         return (args) -> {
 
-            userRepository.save(new User(new UserDto("username", "password", "email")));
+//            userRepository.save((new UserDto("username", "password", "email")
+//                    .getEncodedUser(new BCryptPasswordEncoder())));
 
             System.out.println("init repository");
         };

@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import java.util.Map;
+
 @RestController
 public class UserController {
 
@@ -19,9 +22,21 @@ public class UserController {
     }
 
 
+//    @PostMapping("/api/signup")
+//    public ResponseStatus signup(@Valid @RequestBody UserDto requestDto){
+//        return userService.signup(requestDto);
+//    }
+
     @PostMapping("/api/signup")
-    public ResponseStatus signup(@RequestBody UserDto requestDto) {
-        return userService.signup(requestDto);
+    public void signup(@Valid @RequestBody UserDto requestDto){
+        requestDto.checkPassword();
+        System.out.println(requestDto.getEncodedPassword() + requestDto.getEncodedPassword());
+//        return userService.signup(requestDto);
+    }
+
+    @PostMapping("/test")
+    public void test(@RequestBody Map<String, String> request){
+        System.out.println(request);
     }
 
 }

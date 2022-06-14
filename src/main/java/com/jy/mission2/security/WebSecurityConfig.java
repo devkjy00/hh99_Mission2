@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JWTAuthProvider jwtAuthProvider;
@@ -123,6 +123,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         skipPathList.add("GET,/");
         skipPathList.add("GET,/basic.js");
+
+        skipPathList.add("POST,/test");
 
         FilterSkipMatcher matcher = new FilterSkipMatcher(
                 skipPathList,
