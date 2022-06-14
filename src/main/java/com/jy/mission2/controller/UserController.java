@@ -22,21 +22,10 @@ public class UserController {
     }
 
 
-//    @PostMapping("/api/signup")
-//    public ResponseStatus signup(@Valid @RequestBody UserDto requestDto){
-//        return userService.signup(requestDto);
-//    }
-
     @PostMapping("/api/signup")
-    public void signup(@Valid @RequestBody UserDto requestDto){
+    public ResponseStatus signup(@Valid @RequestBody UserDto requestDto){
         requestDto.checkPassword();
-        System.out.println(requestDto.getEncodedPassword() + requestDto.getEncodedPassword());
-//        return userService.signup(requestDto);
-    }
-
-    @PostMapping("/test")
-    public void test(@RequestBody Map<String, String> request){
-        System.out.println(request);
+        return userService.signup(requestDto);
     }
 
 }
