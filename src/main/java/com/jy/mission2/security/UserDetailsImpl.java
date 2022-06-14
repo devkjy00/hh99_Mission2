@@ -1,9 +1,7 @@
 package com.jy.mission2.security;
 
 import com.jy.mission2.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,9 +13,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private final User user;
 
-
     public UserDetailsImpl(User user) {
-        System.out.println("UserDetailsImpl");
         this.user = user;
     }
 
@@ -32,7 +28,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getEmail();
     }
 
     @Override
