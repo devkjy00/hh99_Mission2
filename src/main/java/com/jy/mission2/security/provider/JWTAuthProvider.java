@@ -13,6 +13,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class JWTAuthProvider implements AuthenticationProvider {
 
@@ -29,11 +31,12 @@ public class JWTAuthProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String token = (String) authentication.getPrincipal();
-        String username = jwtDecoder.decodeUsername(token);
+        Map<String, String> jwtData = jwtDecoder.decode(token);
 
-        User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Can't find" + username));
-        UserDetailsImpl userDetails = new UserDetailsImpl(user);
+//        User user = userRepository.findByEmail(username)
+//                .orElseThrow(() -> new UsernameNotFoundException("Can't find" + username));
+        System.out.println(jwtData);
+        UserDetailsImpl userDetails = new UserDetailsImpl(jwtData);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 
