@@ -4,4 +4,5 @@
 
 ## 오류
 - User 테이블을 생성할 때 user 키워드가 이미 DB에서 사용중이라서 테이블을 만들지 못하는 오류가 발생
-  - @Table(name = "user_table") 어노테이션을 추가해서 테이블 
+  - @Table(name = "user_table") 어노테이션을 추가해서 테이블 이름을 변경했다
+  
