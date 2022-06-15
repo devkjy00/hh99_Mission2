@@ -6,6 +6,7 @@ import com.jy.mission2.repository.UserRepository;
 import com.jy.mission2.response.ErrMessage;
 import com.jy.mission2.response.Message;
 import com.jy.mission2.response.ResponseMessage;
+import com.jy.mission2.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,10 @@ public class UserService {
         return Message.SUCCESS.getMessage();
     }
 
+    public User getUser(UserDetailsImpl userDetails){
+        return userRepository.findById(userDetails.getId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저 ID"));
+    }
 
 
 }

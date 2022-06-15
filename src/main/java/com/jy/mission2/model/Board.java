@@ -1,6 +1,8 @@
 package com.jy.mission2.model;
 
 
+import com.jy.mission2.dto.BoardDto;
+import com.jy.mission2.security.UserDetailsImpl;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,10 +35,11 @@ public class Board {
     @Column
     private String content;
 
-    @Builder
-    public Board(int layoutType, String imgUrl, String content) {
-        this.layoutType = layoutType;
-        this.imgUrl = imgUrl;
-        this.content = content;
+    public Board(BoardDto requestDto, User user){
+         this.user = user;
+         this.content = requestDto.getContent();
+         this.imgUrl = requestDto.getImgUrl();
+         this.layoutType = requestDto.getLayoutType();
     }
 }
+

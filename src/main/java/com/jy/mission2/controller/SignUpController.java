@@ -32,16 +32,4 @@ public class SignUpController {
         return userService.signup(requestDto);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex){
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors()
-                .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
-        return ResponseEntity.badRequest().body(errors);
-    }
-
-    @ExceptionHandler(NameOverlappedPasswordException.class)
-    public ResponseEntity<String> handleValidationExceptions(NameOverlappedPasswordException ex){
-        return ResponseEntity.badRequest().body(ex.getMessage());
-    }
 }
