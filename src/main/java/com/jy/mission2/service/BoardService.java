@@ -11,6 +11,7 @@ import com.jy.mission2.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
@@ -58,13 +59,29 @@ public class BoardService {
     public String deleteBoard(
             UserDetailsImpl userDetails, Long boardId){
 
-        Board board = boardRepository.findByUserIdAndId(userDetails.getId(), boardId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물 입니다"));
-
+        Board board = findByUserIdAndId(userDetails, boardId);
         boardRepository.deleteById(board.getId());
 
         return Message.SUCCESS.getMessage();
     }
 
+    @Transactional
+    public String updateBoard(
+            BoardDto requestDto,
+            UserDetailsImpl userDetails, Long boardId) {
 
+       Board board = findByUserIdAndId(userDetails, boardId);
+       board.update(requestDto);
+
+       return Message.SUCCESS.getMessage();
+    }
+
+
+    private Board findByUserIdAndId(
+            UserDetailsImpl userDetails, Long boardId) {
+
+        return boardRepository.findByUserIdAndId(userDetails.getId(), boardId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물 입니다"));
+    }
 }
+

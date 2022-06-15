@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.Objects;
 
 @Getter
 @Entity
@@ -27,7 +28,7 @@ public class Board {
     private User user;
 
     @Column(nullable = false)
-    private int layoutType;
+    private Integer layoutType;
 
     @Column
     private String imgUrl;
@@ -40,6 +41,17 @@ public class Board {
          this.content = requestDto.getContent();
          this.imgUrl = requestDto.getImgUrl();
          this.layoutType = requestDto.getLayoutType();
+    }
+
+    public void update(BoardDto requestDto){
+        String content = requestDto.getContent();
+        String imgUrl = requestDto.getImgUrl();
+        Integer layoutType = requestDto.getLayoutType();
+
+
+        this.content = Objects.nonNull(content)? content : this.content;
+        this.imgUrl = Objects.nonNull(imgUrl)? imgUrl : this.imgUrl;
+        this.layoutType = Objects.nonNull(layoutType)? layoutType : this.layoutType;
     }
 }
 

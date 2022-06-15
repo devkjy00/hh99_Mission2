@@ -33,8 +33,8 @@ public class BoardController {
     @PostMapping("/api/boards")
     public String addBoard(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @RequestBody BoardDto boardDto){
-        return boardService.addBoard(userDetails, boardDto);
+            @RequestBody BoardDto requestDto){
+        return boardService.addBoard(userDetails, requestDto);
     }
 
     @DeleteMapping("/api/boards/{boardId}")
@@ -43,4 +43,14 @@ public class BoardController {
             @PathVariable Long boardId) {
         return boardService.deleteBoard(userDetails, boardId);
     }
-}
+
+    @PutMapping("/api/boards/{boardId}")
+    public String updateBoard(
+            @RequestBody BoardDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @PathVariable Long boardId) {
+
+        return boardService.updateBoard(requestDto, userDetails, boardId);
+        }
+    }
+

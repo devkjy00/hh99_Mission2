@@ -13,7 +13,7 @@ public class BoardDto {
     @Min(value = 1, message = DtoMessage.WRONG_LAYOUTTYPE)
     @Max(value = 3, message = DtoMessage.WRONG_LAYOUTTYPE)
     @NotBlank(message = DtoMessage.WRONG_LAYOUTTYPE)
-    private int layoutType;
+    private Integer layoutType;
 
     private String imgUrl;
 

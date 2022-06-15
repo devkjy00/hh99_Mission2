@@ -10,7 +10,7 @@ public class BoardResponseDto {
     private String content;
     private String imgUrl;
 //    private int likes;
-    private int layoutType;
+    private Integer layoutType;
 
     public BoardResponseDto(Board board){
         this.content = board.getContent();
