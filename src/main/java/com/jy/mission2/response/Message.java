@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Message implements ResponseMessage{
-    SUCCESS("SUCCESS");
+    SUCCESS("ㅊㅋㅊㅋ");
 
     final String message;
 

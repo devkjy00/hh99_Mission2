@@ -10,14 +10,14 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class BoardDto {
 
-    @Min(1)
-    @Max(3)
-    @NotBlank
+    @Min(value = 1, message = DtoMessage.WRONG_LAYOUTTYPE)
+    @Max(value = 3, message = DtoMessage.WRONG_LAYOUTTYPE)
+    @NotBlank(message = DtoMessage.WRONG_LAYOUTTYPE)
     private int layoutType;
 
     private String imgUrl;
 
-    @NotBlank
+    @NotBlank(message = DtoMessage.EMPTY_CONTENT)
     private String content;
 
 }

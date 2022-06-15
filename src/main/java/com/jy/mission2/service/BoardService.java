@@ -13,8 +13,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BoardService {
@@ -52,7 +54,17 @@ public class BoardService {
 
     }
 
+    @Transactional
+    public String deleteBoard(
+            UserDetailsImpl userDetails, Long boardId){
 
+        Board board = boardRepository.findByUserIdAndId(userDetails.getId(), boardId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물 입니다"));
+
+        boardRepository.deleteById(board.getId());
+
+        return Message.SUCCESS.getMessage();
+    }
 
 
 }
