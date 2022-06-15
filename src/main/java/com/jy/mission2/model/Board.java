@@ -17,14 +17,14 @@ import java.util.Objects;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Board {
+public class Board extends TimeStamp{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", nullable = false)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @Column(nullable = false)
@@ -47,7 +47,6 @@ public class Board {
         String content = requestDto.getContent();
         String imgUrl = requestDto.getImgUrl();
         Integer layoutType = requestDto.getLayoutType();
-
 
         this.content = Objects.nonNull(content)? content : this.content;
         this.imgUrl = Objects.nonNull(imgUrl)? imgUrl : this.imgUrl;

@@ -30,7 +30,10 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-//    private List<Board> boards;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Board> boardList;
 
+//    public void addBoard(Board board) {
+//        this.boardList.add(board);
+//    }
 }
