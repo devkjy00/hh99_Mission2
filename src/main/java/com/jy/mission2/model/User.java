@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,5 +30,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+//    @OneToMany(fetch = FetchType.LAZY)
+//    private List<Board> boards;
 
 }
