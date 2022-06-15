@@ -1,9 +1,13 @@
 package com.jy.mission2;
 
+import com.jy.mission2.dto.BoardResponseDto;
 import com.jy.mission2.dto.UserDto;
+import com.jy.mission2.model.Board;
 import com.jy.mission2.model.User;
+import com.jy.mission2.repository.BoardRepository;
 import com.jy.mission2.repository.UserRepository;
 import com.jy.mission2.response.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,14 +24,10 @@ public class Mission2Application {
 
 
     @Bean
-    public CommandLineRunner demo(UserRepository userRepository) {
+    public CommandLineRunner demo(BoardRepository boardRepository, UserRepository userRepository) {
         return (args) -> {
+            System.out.println("ready");
 
-//            userRepository.save((new UserDto("email", "nickname", "password")
-//                    .getEncodedUser(new BCryptPasswordEncoder())));
-
-            System.out.println(Message.SUCCESS);
-            System.out.println("init repository");
         };
     }
 

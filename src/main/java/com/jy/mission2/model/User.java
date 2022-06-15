@@ -17,8 +17,8 @@ import java.util.List;
 @Table(name = "user_table")
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USER_ID")
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -30,7 +30,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-//    @OneToMany(fetch = FetchType.LAZY)
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 //    private List<Board> boards;
 
 }
