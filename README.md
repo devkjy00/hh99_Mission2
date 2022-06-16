@@ -18,6 +18,9 @@
 - ***Like테이블 생성할 때 Error executing DDL 오류가 발생***
   - [*구글링*](https://csy7792.tistory.com/66) 을 해본 해본결과 like라는 이름은 예약어 이기 때문에 컬럼명으로 사용할 수 없다, like -> like_status로 변경
   
+- ***좋아요 기능을 구현하고 테스트하는데 서버에서는 아무런 오류가 없는데 포스트맨에서 404에러가 발생한다***
+  - /api/boards/{boardId}/likes 로 요청을 보내서 발생하는 문제, /test로 요청을 보내니까 아주 잘된다
+  - 헤더 값을 보니 {vary : Access-Control-Request-Method, vary : Access-Control-Request-Headers} 와 같이 특이한 값이 들어있다.. 검색해보니 CORS관련된 오류인것 같다
 
 
 ## Thought
