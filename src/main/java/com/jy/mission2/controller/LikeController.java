@@ -20,7 +20,7 @@ public class LikeController {
 
     @DeleteMapping("/api/boards/{boardId}/likes")
     @PostMapping("/api/boards/{boardId}/likes")
-    @GetMapping("/api/boards/{boardId}/likes")
+//    @GetMapping("/api/boards/{boardId}/likes")
     public String toggleLike(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @PathVariable Long boardId){
