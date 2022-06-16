@@ -16,7 +16,8 @@
   - @RestControllerAdvice와 @ExceptionHandler를 사용해서 분리했다
 
 - ***Like테이블 생성할 때 Error executing DDL 오류가 발생***
-- [*구글링*](https://csy7792.tistory.com/66) 을 해본 해본결과 like라는 이름은 예약어 이기 때문에 컬럼명으로 사용할 수 없다, like -> like_status로 
+  - [*구글링*](https://csy7792.tistory.com/66) 을 해본 해본결과 like라는 이름은 예약어 이기 때문에 컬럼명으로 사용할 수 없다, like -> like_status로 변경
+  
 
 
 ## Thought
