@@ -1,5 +1,7 @@
 package com.jy.mission2.dto;
 
+import com.jy.mission2.model.Board;
+import com.jy.mission2.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -22,4 +24,12 @@ public class BoardDto {
     @NotBlank(message = DtoMessage.EMPTY_CONTENT)
     private String content;
 
+    public Board getBoard(User user){
+        return Board.builder()
+                .user(user)
+                .content(content)
+                .imgUrl(imgUrl)
+                .layoutType(layoutType)
+                .build();
+    }
 }
