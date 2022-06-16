@@ -41,24 +41,6 @@ public class TestController {
 
     @GetMapping("/test")
     public void getTest(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        User user = userRepository.findById(userDetails.getId())
-                .orElseThrow(() -> new IllegalArgumentException("없음"));
-
-        List<Board> boardList = user.getBoardList();
-
-
-
-        Board board = boardRepository.findById(2L)
-                .orElseThrow(() -> new IllegalArgumentException("없음"));
-
-        BoardDto dto = new BoardDto(2, "url", "변경");
-
-        board.update(dto);
-
-        boardList.add(board);
-        user.setBoardList(boardList);
-        userRepository.save(user);
-
-
+        System.out.println("no test");
     }
 }
