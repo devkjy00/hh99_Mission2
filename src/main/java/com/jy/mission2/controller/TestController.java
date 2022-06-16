@@ -37,6 +37,6 @@ public class TestController {
 
     @GetMapping("/test")
     public void getTest(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        likeService.toggleLike(userDetails, 2L);
+        System.out.println("no test");
     }
 }
