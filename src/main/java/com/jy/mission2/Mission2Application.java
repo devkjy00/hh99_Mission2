@@ -1,5 +1,6 @@
 package com.jy.mission2;
 
+import com.jy.mission2.dto.BoardDto;
 import com.jy.mission2.dto.BoardResponseDto;
 import com.jy.mission2.dto.UserDto;
 import com.jy.mission2.model.Board;
@@ -29,6 +30,19 @@ public class Mission2Application {
     public CommandLineRunner demo(BoardRepository boardRepository, UserRepository userRepository) {
         return (args) -> {
             System.out.println("ready");
+            User user = userRepository.save(
+                User.builder()
+                        .email("anwjsrlrhwkd@naver.com")
+                        .nickname("kkk123")
+                        .password("abcde1234")
+                        .build()
+            );
+
+            boardRepository.save(Board.builder()
+                    .layoutType(2)
+                    .imgUrl("1234")
+                    .content("1234")
+                    .user(user).build());
 
         };
     }
