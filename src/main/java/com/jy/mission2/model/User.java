@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,8 +17,8 @@ import javax.persistence.*;
 @Table(name = "user_table")
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USER_ID")
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -29,5 +30,10 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Board> boardList;
 
+//    public void addBoard(Board board) {
+//        this.boardList.add(board);
+//    }
 }
