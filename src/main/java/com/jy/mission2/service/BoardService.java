@@ -33,13 +33,10 @@ public class BoardService {
     }
 
     public List<BoardResponseDto> getBoards(Long userId) {
-        List<Board> boardList = boardRepository.findAllByUserId(userId);
+        List<Board> boardList = boardRepository.findAllByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("게시물이 존재 하지 않습니다"));
 
-        List<BoardResponseDto> responseDtoList = new ArrayList<>();
-        for (Board board : boardList) {
-            responseDtoList.add(new BoardResponseDto(board));
-        }
-        return responseDtoList;
+        return BoardResponseDto.getDtoList(boardList);
     }
 
     public String addBoard(
@@ -48,7 +45,7 @@ public class BoardService {
 
         User user = userService.getUser(userDetails);
 
-        Board board = new Board(boardDto, user);
+        Board board = boardDto.getBoard(user);
         boardRepository.save(board);
 
         return Message.SUCCESS.getMessage();
@@ -59,7 +56,7 @@ public class BoardService {
     public String deleteBoard(
             UserDetailsImpl userDetails, Long boardId){
 
-        Board board = findByUserIdAndId(userDetails, boardId);
+        Board board = findByIdAndUserId(boardId, userDetails);
         boardRepository.deleteById(board.getId());
 
         return Message.SUCCESS.getMessage();
@@ -70,18 +67,23 @@ public class BoardService {
             BoardDto requestDto,
             UserDetailsImpl userDetails, Long boardId) {
 
-       Board board = findByUserIdAndId(userDetails, boardId);
+       Board board = findByIdAndUserId(boardId, userDetails);
        board.update(requestDto);
 
        return Message.SUCCESS.getMessage();
     }
 
 
-    private Board findByUserIdAndId(
-            UserDetailsImpl userDetails, Long boardId) {
+    private Board findByIdAndUserId(
+            Long boardId, UserDetailsImpl userDetails){
 
-        return boardRepository.findByUserIdAndId(userDetails.getId(), boardId)
+        return boardRepository.findByIdAndUserId(boardId, userDetails.getId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물 입니다"));
+    }
+
+    public Board getBoardById(Long id){
+        return boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물"));
     }
 }
 

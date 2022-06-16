@@ -15,17 +15,22 @@ import java.util.Objects;
 
 @Getter
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Board extends TimeStamp{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "BOARD_ID")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "board", orphanRemoval = true)
+    private Like like;
 
     @Column(nullable = false)
     private Integer layoutType;
@@ -35,13 +40,6 @@ public class Board extends TimeStamp{
 
     @Column
     private String content;
-
-    public Board(BoardDto requestDto, User user){
-         this.user = user;
-         this.content = requestDto.getContent();
-         this.imgUrl = requestDto.getImgUrl();
-         this.layoutType = requestDto.getLayoutType();
-    }
 
     public void update(BoardDto requestDto){
         String content = requestDto.getContent();
