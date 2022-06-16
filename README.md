@@ -20,7 +20,8 @@
   
 - ***좋아요 기능을 구현하고 테스트하는데 서버에서는 아무런 오류가 없는데 포스트맨에서 404에러가 발생한다***
   - /api/boards/{boardId}/likes 로 요청을 보내서 발생하는 문제, /test로 요청을 보내니까 아주 잘된다
-  - 헤더 값을 보니 {vary : Access-Control-Request-Method, vary : Access-Control-Request-Headers} 와 같이 특이한 값이 들어있다.. 검색해보니 CORS관련된 오류인것 같다
+  - 헤더 값을 보니 {vary : Access-Control-Request-Method, vary : Access-Control-Request-Headers} 와 같이 특이한 값이 들어있다..
+  - @RestController가 아닌 @Controller로 잘못 입력해서 발생한 문제.....ㅠㅠ... 작성할 때 잘 확인하자
 
 
 ## Thought
