@@ -24,7 +24,7 @@ public class Like extends TimeStamp{
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOARD_ID")
     private Board board;
 
@@ -37,7 +37,8 @@ public class Like extends TimeStamp{
         this.like_status = false;
     }
 
-    public void toggle(){
+    public Boolean toggle(){
         like_status = !like_status;
+        return like_status;
     }
 }

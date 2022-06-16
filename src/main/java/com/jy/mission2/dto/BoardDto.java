@@ -30,6 +30,7 @@ public class BoardDto {
                 .content(content)
                 .imgUrl(imgUrl)
                 .layoutType(layoutType)
+                .likeQty(0)
                 .build();
     }
 }

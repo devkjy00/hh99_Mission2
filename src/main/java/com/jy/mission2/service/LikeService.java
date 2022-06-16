@@ -9,10 +9,13 @@ import com.jy.mission2.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LikeService {
+
+    private final int PLUS = 1;
+    private final int MINUS = -1;
 
     private final LikeRepository likeRepository;
     private final UserService userService;
@@ -32,14 +35,20 @@ public class LikeService {
         Like like = likeRepository.findByUserIdAndBoardId(userDetails.getId(), boardId)
                 .orElseGet(() -> createLike(userDetails, boardId));
 
-        like.toggle();
+        Board board = like.getBoard();
+
+        if(like.toggle()){
+            board.updateLikeQty(PLUS);
+        }else{
+            board.updateLikeQty(MINUS);}
 
 
         return Message.SUCCESS.getMessage();
     }
 
 
-    private Like createLike(
+    @Transactional
+    public Like createLike(
             UserDetailsImpl userDetails, Long boardId){
 
         User user = userService.getUser(userDetails);
