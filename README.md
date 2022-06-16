@@ -15,6 +15,9 @@
 - ***@Valid에서 매개변수로 받은 Errors를 처리하려고 했는데 매개변수가 늘어나고 코드가 더러워진다***
   - @RestControllerAdvice와 @ExceptionHandler를 사용해서 분리했다
 
+- ***Like테이블 생성할 때 Error executing DDL 오류가 발생***
+- [*구글링*](https://csy7792.tistory.com/66) 을 해본 해본결과 like라는 이름은 예약어 이기 때문에 컬럼명으로 사용할 수 없다, like -> like_status로 
+
 
 ## Thought
 - ***Spring Data Jpa로 데이터를 저장하면 연관관계를 설정한 테이블을 저장할 때 외래키 주인 객체를 직접 연결해줘야하는 불편함이 있는 것 같다***
