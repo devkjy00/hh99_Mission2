@@ -10,8 +10,10 @@ import com.jy.mission2.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
 
 @Service
 public class UserService {
@@ -25,6 +27,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional
     public String signup(UserDto requestDto){
         Optional<User> idCheck = userRepository.findByEmail(requestDto.getEmail());
         if(idCheck.isPresent()){
@@ -37,6 +40,7 @@ public class UserService {
         return Message.SUCCESS.getMessage();
     }
 
+    @Transactional(readOnly = true)
     public User getUser(UserDetailsImpl userDetails){
         return userRepository.findById(userDetails.getId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저 ID"));

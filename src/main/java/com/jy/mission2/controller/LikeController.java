@@ -17,15 +17,19 @@ public class LikeController {
         this.likeService = likeService;
     }
 
-
-    @DeleteMapping("/api/boards/{boardId}/likes")
     @PostMapping("/api/boards/{boardId}/likes")
-//    @GetMapping("/api/boards/{boardId}/likes")
-    public String toggleLike(
+    public String createLike(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @PathVariable Long boardId){
 
         return likeService.toggleLike(userDetails, boardId);
     }
 
+    @DeleteMapping("/api/boards/{boardId}/likes")
+    public String deleteLike(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @PathVariable Long boardId){
+
+        return likeService.toggleLike(userDetails, boardId);
+    }
 }
