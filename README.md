@@ -26,3 +26,6 @@
 
 - ***Integer값에 @NotBlank를 사용해서 UnexpectedTypeException 발생***
   - @NotNull로 교체
+
+- ***@valid로 Dto의 모든 값의 유효성을 검사하면 테이블의 몇개의 값만 수정하고 싶을 때 null을 받을 수 없다***
+  - @Validated로 그룹핑을 해서 유효성 검사를 했다
