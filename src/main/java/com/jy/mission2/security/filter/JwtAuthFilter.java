@@ -1,8 +1,12 @@
 package com.jy.mission2.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jy.mission2.exception.DataNotFoundException;
+import com.jy.mission2.response.FailureMessage;
 import com.jy.mission2.security.jwt.HeaderTokenExtractor;
 import com.jy.mission2.security.jwt.JwtPreProcessingToken;
+import net.bytebuddy.implementation.bytecode.Throw;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
@@ -30,7 +34,7 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
     ){
         super(requestMatcher);
         this.extractor = extractor;
-        mapper = new ObjectMapper();
+        this.mapper = new ObjectMapper();
     }
 
 
@@ -38,10 +42,16 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         String tokenPayload = request.getHeader("Authorization");
         if (Objects.isNull(tokenPayload)){
-//            response.sendRedirect("/user/loginView");
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            ResponseEntity<String> responseEntity =
+                    FailureMessage.NOT_ATHOURIZED.getResponseEntity();
 
-            response.sendError(401, "로그인이 필요합니다");
-            return null;
+            String message = mapper.writeValueAsString(responseEntity);
+
+            response.getWriter().write(message);
+
+            throw new DataNotFoundException(FailureMessage.NO_DATA_EXIST.getMessage());
         }
 
         // 헤더에서 JWT토큰을 가져와서 UsernamePasswordAuthenticationToken 상속객체에 페이로드와 길이를 저장

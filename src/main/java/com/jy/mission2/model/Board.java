@@ -17,7 +17,7 @@ import java.util.Objects;
 @DynamicInsert
 @DynamicUpdate
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board extends TimeStamp{
 
     @Id

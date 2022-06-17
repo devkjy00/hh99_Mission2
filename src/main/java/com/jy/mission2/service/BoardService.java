@@ -2,9 +2,11 @@ package com.jy.mission2.service;
 
 import com.jy.mission2.dto.request.BoardDto;
 import com.jy.mission2.dto.response.BoardResponseDto;
+import com.jy.mission2.exception.DataNotFoundException;
 import com.jy.mission2.model.Board;
 import com.jy.mission2.model.User;
 import com.jy.mission2.repository.BoardRepository;
+import com.jy.mission2.response.FailureMessage;
 import com.jy.mission2.response.SuccessMessage;
 import com.jy.mission2.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,13 +80,13 @@ public class BoardService {
             Long boardId, UserDetailsImpl userDetails) {
 
         return boardRepository.findByIdAndUserId(boardId, userDetails.getId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물 입니다"));
+                .orElseThrow(() -> new DataNotFoundException(FailureMessage.NO_DATA_EXIST.getMessage()));
     }
 
     @Transactional(readOnly = true)
     public Board getBoardById(Long id) {
         return boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물"));
+                .orElseThrow(() -> new DataNotFoundException(FailureMessage.NO_DATA_EXIST.getMessage()));
     }
 }
 

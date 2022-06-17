@@ -1,6 +1,7 @@
 package com.jy.mission2.service;
 
 import com.jy.mission2.dto.request.UserDto;
+import com.jy.mission2.exception.DataNotFoundException;
 import com.jy.mission2.model.User;
 import com.jy.mission2.repository.UserRepository;
 import com.jy.mission2.response.FailureMessage;
@@ -43,7 +44,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public User getUser(UserDetailsImpl userDetails){
         return userRepository.findById(userDetails.getId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저 ID"));
+                .orElseThrow(() -> new DataNotFoundException(FailureMessage.NO_DATA_EXIST.getMessage()));
     }
 
 
