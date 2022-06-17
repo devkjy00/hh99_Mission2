@@ -1,24 +1,21 @@
 package com.jy.mission2.service;
 
-import com.jy.mission2.dto.BoardDto;
-import com.jy.mission2.dto.BoardResponseDto;
+import com.jy.mission2.dto.request.BoardDto;
+import com.jy.mission2.dto.response.BoardResponseDto;
 import com.jy.mission2.model.Board;
 import com.jy.mission2.model.User;
 import com.jy.mission2.repository.BoardRepository;
-import com.jy.mission2.response.Message;
-import com.jy.mission2.response.ResponseMessage;
+import com.jy.mission2.response.SuccessMessage;
 import com.jy.mission2.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.transaction.annotation.Transactional;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BoardService {
@@ -34,15 +31,14 @@ public class BoardService {
 
 
     @Transactional(readOnly = true)
-    public List<BoardResponseDto> getBoards(Long userId) {
+    public List<BoardResponseDto> getBoards() {
         List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC,"likeQty"));
-//        List<Board> boardList = boardRepository.findAll();
 
         return BoardResponseDto.getDtoList(boardList);
     }
 
     @Transactional
-    public String addBoard(
+    public ResponseEntity<String> addBoard(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             BoardDto boardDto) {
 
@@ -51,29 +47,29 @@ public class BoardService {
         Board board = boardDto.getBoard(user);
         boardRepository.save(board);
 
-        return Message.SUCCESS.getMessage();
+        return SuccessMessage.SUCCESS.getResponseEntity();
 
     }
 
     @Transactional
-    public String deleteBoard(
+    public ResponseEntity<String> deleteBoard(
             UserDetailsImpl userDetails, Long boardId) {
 
         Board board = findByIdAndUserId(boardId, userDetails);
         boardRepository.deleteById(board.getId());
 
-        return Message.SUCCESS.getMessage();
+        return SuccessMessage.SUCCESS.getResponseEntity();
     }
 
     @Transactional
-    public String updateBoard(
+    public ResponseEntity<String> updateBoard(
             BoardDto requestDto,
             UserDetailsImpl userDetails, Long boardId) {
 
         Board board = findByIdAndUserId(boardId, userDetails);
         board.updateFields(requestDto);
 
-        return Message.SUCCESS.getMessage();
+        return SuccessMessage.SUCCESS.getResponseEntity();
     }
 
 

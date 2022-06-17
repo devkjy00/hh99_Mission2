@@ -1,5 +1,6 @@
 package com.jy.mission2.security.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jy.mission2.security.jwt.HeaderTokenExtractor;
 import com.jy.mission2.security.jwt.JwtPreProcessingToken;
 import org.springframework.security.core.Authentication;
@@ -11,14 +12,17 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
+@WebServlet
 public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
 
     private final HeaderTokenExtractor extractor;
+    private final ObjectMapper mapper;
 
     public JwtAuthFilter(
             RequestMatcher requestMatcher,
@@ -26,6 +30,7 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
     ){
         super(requestMatcher);
         this.extractor = extractor;
+        mapper = new ObjectMapper();
     }
 
 
@@ -33,7 +38,9 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         String tokenPayload = request.getHeader("Authorization");
         if (Objects.isNull(tokenPayload)){
-            response.sendRedirect("/user/loginView");
+//            response.sendRedirect("/user/loginView");
+
+            response.sendError(401, "로그인이 필요합니다");
             return null;
         }
 

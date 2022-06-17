@@ -1,15 +1,16 @@
-package com.jy.mission2.dto;
+package com.jy.mission2.dto.response;
 
 
 import com.jy.mission2.model.Board;
-import com.jy.mission2.model.Like;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class BoardResponseDto {
+    private Long userId;
     private String nickname;
     private String content;
     private String imgUrl;
@@ -17,6 +18,7 @@ public class BoardResponseDto {
     private List<LikeResponseDto> likes;
 
     public BoardResponseDto(Board board) {
+        this.userId = board.getUser().getId();
         this.content = board.getContent();
         this.imgUrl = board.getImgUrl();
         this.layoutType = board.getLayoutType();
@@ -25,12 +27,9 @@ public class BoardResponseDto {
     }
 
     public static List<BoardResponseDto> getDtoList(List<Board> boardList){
+        return  boardList.stream()
+                        .map(BoardResponseDto::new)
+                        .collect(Collectors.toList());
 
-        List<BoardResponseDto> responseDtoList = new ArrayList<>();
-        for (Board board : boardList) {
-            responseDtoList.add(new BoardResponseDto(board));
-        }
-
-        return responseDtoList;
     }
 }
