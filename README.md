@@ -28,4 +28,4 @@
   - @NotNull로 교체
 
 - ***@valid로 Dto의 모든 값의 유효성을 검사하면 테이블의 몇개의 값만 수정하고 싶을 때 null을 받을 수 없다***
-  - @Validated로 그룹핑을 해서 유효성 검사를 했다
+  - [@Validated로 그룹핑을 해서 유효성 검사를 했다](https://velog.io/@damiano1027/Spring-Valid-Validated%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%9C%A0%ED%9A%A8%EC%84%B1-%EA%B2%80%EC%A6%9D)
