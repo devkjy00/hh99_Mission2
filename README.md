@@ -23,3 +23,6 @@
 
 - ***클라이언트로 부터 입력받지 못한 Entity의 속성 값이 null이 되는 상황***
   - @ColumnDefalut 컬럼의 디폴트 값을 명시, @DynamicInsert 값이 null인 컬럼은 빼고 insert 자동으로 디폴트 값이 저장된다
+
+- ***Integer값에 @NotBlank를 사용해서 UnexpectedTypeException 발생***
+  - @NotNull로 교체
