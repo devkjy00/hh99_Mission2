@@ -1,11 +1,11 @@
-package com.jy.mission2.dto;
+package com.jy.mission2.dto.response;
 
 import com.jy.mission2.model.Like;
 import lombok.Getter;
 
-import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class LikeResponseDto {
@@ -19,13 +19,8 @@ public class LikeResponseDto {
     }
 
     public static List<LikeResponseDto> getLikeTrueList(List<Like> likeList){
-        List<LikeResponseDto> likeResponseDtoList = new ArrayList<>();
-        for(Like like: likeList){
-            if(like.getLike_status()){
-                likeResponseDtoList.add(new LikeResponseDto(like));
-            }
-        }
-
-        return likeResponseDtoList;
+        return likeList.stream()
+                    .map(LikeResponseDto::new)
+                    .collect(Collectors.toList());
     }
 }

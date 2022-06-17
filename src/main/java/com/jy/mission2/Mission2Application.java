@@ -1,18 +1,12 @@
 package com.jy.mission2;
 
-import com.jy.mission2.dto.BoardDto;
-import com.jy.mission2.dto.BoardResponseDto;
-import com.jy.mission2.dto.UserDto;
 import com.jy.mission2.model.Board;
 import com.jy.mission2.model.User;
 import com.jy.mission2.repository.BoardRepository;
 import com.jy.mission2.repository.UserRepository;
-import com.jy.mission2.response.Message;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,14 +21,14 @@ public class Mission2Application {
 
 
     @Bean
-    public CommandLineRunner demo(BoardRepository boardRepository, UserRepository userRepository) {
+    public CommandLineRunner demo(BoardRepository boardRepository, UserRepository userRepository, BCryptPasswordEncoder encoder) {
         return (args) -> {
             System.out.println("ready");
             User user = userRepository.save(
                 User.builder()
                         .email("anwjsrlrhwkd@naver.com")
                         .nickname("kkk123")
-                        .password("abcde1234")
+                        .password(encoder.encode("abcde1234"))
                         .build()
             );
 

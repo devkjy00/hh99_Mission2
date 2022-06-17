@@ -1,15 +1,13 @@
 package com.jy.mission2.model;
 
 
-import com.jy.mission2.dto.BoardDto;
-import com.jy.mission2.security.UserDetailsImpl;
+import com.jy.mission2.dto.request.BoardDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +15,7 @@ import java.util.Objects;
 @Entity
 @Builder
 @DynamicInsert
+@DynamicUpdate
 @AllArgsConstructor
 @NoArgsConstructor
 public class Board extends TimeStamp{
@@ -30,12 +29,13 @@ public class Board extends TimeStamp{
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "board", orphanRemoval = true)
     private List<Like> likeList;
 
     @ColumnDefault(value = "0")
     private Integer likeQty;
 
+    @Column(nullable = false)
     private Integer layoutType;
 
     @Column

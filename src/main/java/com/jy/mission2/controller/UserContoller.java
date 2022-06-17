@@ -1,8 +1,9 @@
 package com.jy.mission2.controller;
 
-import com.jy.mission2.dto.UserDto;
+import com.jy.mission2.dto.request.UserDto;
 import com.jy.mission2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,9 +20,8 @@ public class UserContoller {
 
 
     @PostMapping("/api/signup")
-    public String signup(@Valid @RequestBody UserDto requestDto){
+    public ResponseEntity<String> signup(@Valid @RequestBody UserDto requestDto){
         requestDto.checkPassword();
         return userService.signup(requestDto);
     }
-
 }

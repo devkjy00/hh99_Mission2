@@ -1,5 +1,6 @@
-package com.jy.mission2.dto;
+package com.jy.mission2.dto.request;
 
+import com.jy.mission2.dto.DtoMessage;
 import com.jy.mission2.model.Board;
 import com.jy.mission2.model.User;
 import lombok.AllArgsConstructor;

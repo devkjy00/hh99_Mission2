@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 
 public class FormLoginAuthProvider implements AuthenticationProvider {
 
-    @Resource(name="userDetailsServiceImpl")
+    @Resource(name = "userDetailsServiceImpl")
     private UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -29,15 +29,12 @@ public class FormLoginAuthProvider implements AuthenticationProvider {
 
         String username = token.getName();
         String password = (String) token.getCredentials();
-
         UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
+
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException(userDetails.getUsername() + "Invalid password");
         }
 
-//        if (!password.equals(userDetails.getPassword())){
-//            throw new BadCredentialsException(userDetails.getUsername() + "Invalid password");
-//        }
 
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }

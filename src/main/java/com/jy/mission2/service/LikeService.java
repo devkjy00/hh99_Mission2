@@ -4,9 +4,10 @@ import com.jy.mission2.model.Board;
 import com.jy.mission2.model.Like;
 import com.jy.mission2.model.User;
 import com.jy.mission2.repository.LikeRepository;
-import com.jy.mission2.response.Message;
+import com.jy.mission2.response.SuccessMessage;
 import com.jy.mission2.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,7 @@ public class LikeService {
     }
 
     @Transactional
-    public String toggleLike(
+    public ResponseEntity<String> toggleLike(
             UserDetailsImpl userDetails, Long boardId){
 
         Like like = likeRepository.findByUserIdAndBoardId(userDetails.getId(), boardId)
@@ -43,11 +44,10 @@ public class LikeService {
             board.updateLikeQty(MINUS);}
 
 
-        return Message.SUCCESS.getMessage();
+        return SuccessMessage.SUCCESS.getResponseEntity();
     }
 
 
-    @Transactional
     public Like createLike(
             UserDetailsImpl userDetails, Long boardId){
 
