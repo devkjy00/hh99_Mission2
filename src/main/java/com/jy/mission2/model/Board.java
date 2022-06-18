@@ -45,12 +45,12 @@ public class Board extends TimeStamp{
     private String content;
 
     public void updateFields(BoardDto requestDto){
-        String content = requestDto.getContent();
-        String imgUrl = requestDto.getImgUrl();
-        Integer layoutType = requestDto.getLayoutType();
+        String content      = requestDto.getContent();
+        String imgUrl       = requestDto.getImgUrl();
+        Integer layoutType  = requestDto.getLayoutType();
 
-        this.content = Objects.nonNull(content)? content : this.content;
-        this.imgUrl = Objects.nonNull(imgUrl)? imgUrl : this.imgUrl;
+        this.content    = Objects.nonNull(content)? content : this.content;
+        this.imgUrl     = Objects.nonNull(imgUrl)? imgUrl : this.imgUrl;
         this.layoutType = Objects.nonNull(layoutType)? layoutType : this.layoutType;
     }
 
