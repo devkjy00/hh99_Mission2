@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api")
 public class UserContoller {
 
     private final UserService userService;
@@ -19,7 +20,7 @@ public class UserContoller {
     }
 
 
-    @PostMapping("/api/signup")
+    @PostMapping("/signup")
     public ResponseEntity<String> signup(@Valid @RequestBody UserDto requestDto){
         requestDto.checkPassword();
         return userService.signup(requestDto);

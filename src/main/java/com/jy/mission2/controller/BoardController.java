@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/boards")
 public class BoardController {
 
     private final BoardService boardService;
@@ -21,26 +24,27 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("/api/boards")
+    @GetMapping()
     public List<BoardResponseDto> getBoards(){
         return boardService.getBoards();
     }
 
-    @PostMapping("/api/boards")
+    @PostMapping()
     public ResponseEntity<String> addBoard(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @RequestBody BoardDto requestDto){
+            @Valid BoardDto requestDto,
+            @RequestPart List<MultipartFile> multipartFileList){
         return boardService.addBoard(userDetails, requestDto);
     }
 
-    @DeleteMapping("/api/boards/{boardId}")
+    @DeleteMapping("/{boardId}")
     public ResponseEntity<String> deleteBoard(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @PathVariable Long boardId) {
         return boardService.deleteBoard(userDetails, boardId);
     }
 
-    @PutMapping("/api/boards/{boardId}")
+    @PutMapping("/{boardId}")
     public ResponseEntity<String> updateBoard(
             @RequestBody BoardDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails,

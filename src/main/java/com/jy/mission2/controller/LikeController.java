@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/boards/{boardId}/likes")
 public class LikeController {
 
     private final LikeService likeService;
@@ -18,7 +19,7 @@ public class LikeController {
         this.likeService = likeService;
     }
 
-    @PostMapping("/api/boards/{boardId}/likes")
+    @PostMapping()
     public ResponseEntity<String> createLike(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @PathVariable Long boardId){
@@ -26,7 +27,7 @@ public class LikeController {
         return likeService.toggleLike(userDetails, boardId);
     }
 
-    @DeleteMapping("/api/boards/{boardId}/likes")
+    @DeleteMapping()
     public ResponseEntity<String> deleteLike(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @PathVariable Long boardId){

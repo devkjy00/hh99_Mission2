@@ -20,8 +20,6 @@ public class BoardDto {
     @NotBlank(message = DtoMessage.WRONG_LAYOUTTYPE)
     private Integer layoutType;
 
-    private String imgUrl;
-
     @NotBlank(message = DtoMessage.EMPTY_CONTENT)
     private String content;
 
@@ -29,7 +27,6 @@ public class BoardDto {
         return Board.builder()
                 .user(user)
                 .content(content)
-                .imgUrl(imgUrl)
                 .layoutType(layoutType)
                 .likeQty(0)
                 .build();
