@@ -141,6 +141,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 회원 관리 API 허용
 //        skipPathList.add("GET,/api/**");
         skipPathList.add("POST,/api/signup");
+        skipPathList.add("POST,/api/login");
+
 
         skipPathList.add("GET,/");
         skipPathList.add("GET,/basic.js");
