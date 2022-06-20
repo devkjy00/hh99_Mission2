@@ -1,6 +1,7 @@
 package com.jy.mission2.dto.request;
 
 import com.jy.mission2.dto.DtoMessage;
+import com.jy.mission2.dto.validation.ValidationGroup;
 import com.jy.mission2.model.Board;
 import com.jy.mission2.model.User;
 import com.jy.mission2.service.AwsS3Service;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Max;
@@ -24,9 +27,9 @@ import java.util.List;
 @AllArgsConstructor
 public class BoardDto {
 
-    @Min(value = 1, message = DtoMessage.WRONG_LAYOUTTYPE)
-    @Max(value = 3, message = DtoMessage.WRONG_LAYOUTTYPE)
-    @NotBlank(message = DtoMessage.WRONG_LAYOUTTYPE)
+    @Min(value = 1, message = DtoMessage.WRONG_LAYOUTTYPE, groups = {ValidationGroup.Update.class})
+    @Max(value = 3, message = DtoMessage.WRONG_LAYOUTTYPE, groups = {ValidationGroup.Update.class})
+    @ColumnDefault(value = "1")
     private Integer layoutType;
 
     @NotBlank(message = DtoMessage.EMPTY_IMG)
@@ -36,8 +39,7 @@ public class BoardDto {
     private String content;
 
 
-
-    public Board getBoard(User user, AwsS3Service awsS3Service){
+    public Board getBoard(User user, AwsS3Service awsS3Service) {
         return Board.builder()
                 .user(user)
                 .content(content)

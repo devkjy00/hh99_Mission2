@@ -1,7 +1,7 @@
 package com.jy.mission2.dto.request;
 
 import com.jy.mission2.dto.DtoMessage;
-import com.jy.mission2.exception.NameOverlappedPasswordException;
+import com.jy.mission2.exception.DataNotFoundException;
 import com.jy.mission2.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class UserDto {
     @NotBlank(message = DtoMessage.WRONG_NICKNAME)
     private String nickname;
 
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{4,}", message = DtoMessage.WRONG_PASSWORD)
+    @Pattern(regexp = "^[a-zA-Z\\d`~!@#$%^&*()-_=+?.,;:'\"|<>\\]\\[}{]{4,}$", message = DtoMessage.WRONG_PASSWORD)
     @NotBlank(message = DtoMessage.WRONG_PASSWORD)
     private String password;
 
@@ -40,7 +40,7 @@ public class UserDto {
     public void checkPassword() {
         if (password.contains(nickname)) {
             System.out.println("Overlapped");
-            throw new NameOverlappedPasswordException(DtoMessage.WRONG_PASSWORD);
+            throw new DataNotFoundException(DtoMessage.WRONG_PASSWORD);
         }
     }
 

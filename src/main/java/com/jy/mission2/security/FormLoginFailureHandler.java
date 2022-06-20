@@ -27,11 +27,13 @@ public class FormLoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
        response.setContentType("application/json");
-        ResponseEntity<String> responseEntity =
+       response.setCharacterEncoding("utf-8");
+
+       ResponseEntity<String> responseEntity =
                 FailureMessage.NOT_VALID_ID_PASSWORD.getResponseEntity();
 
-        String message = mapper.writeValueAsString(responseEntity);
+       String message = mapper.writeValueAsString(responseEntity);
 
-        response.getWriter().write(message);
+       response.getWriter().write(message);
     }
 }
