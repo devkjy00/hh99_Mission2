@@ -1,6 +1,7 @@
 package com.jy.mission2.dto.response;
 
 
+import com.jy.mission2.config.AwsS3Config;
 import com.jy.mission2.model.Board;
 import lombok.Getter;
 
@@ -20,7 +21,7 @@ public class BoardResponseDto {
     public BoardResponseDto(Board board) {
         this.userId = board.getUser().getId();
         this.content = board.getContent();
-        this.imgUrl = board.getImgUrl();
+        this.imgUrl = AwsS3Config.address + board.getImgUrl();
         this.layoutType = board.getLayoutType();
         this.nickname = board.getUser().getNickname();
         this.likes = LikeResponseDto.getLikeTrueList(board.getLikeList());
