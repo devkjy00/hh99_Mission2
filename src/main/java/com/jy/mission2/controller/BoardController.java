@@ -32,8 +32,7 @@ public class BoardController {
     @PostMapping()
     public ResponseEntity<String> addBoard(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @Valid BoardDto requestDto,
-            @RequestPart List<MultipartFile> multipartFileList){
+            @ModelAttribute BoardDto requestDto){
         return boardService.addBoard(userDetails, requestDto);
     }
 

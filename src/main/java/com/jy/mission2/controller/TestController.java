@@ -45,14 +45,4 @@ public class TestController {
         this.awsS3Service = awsS3Service;
     }
 
-    @PostMapping()
-    public ResponseEntity<String> addBoard(
-            @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @RequestParam("content") String content,
-            @RequestParam("layoutType") Integer layoutType,
-            @RequestPart List<MultipartFile> multipartFileList){
-
-
-
-    }
 }

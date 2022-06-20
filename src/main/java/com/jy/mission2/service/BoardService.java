@@ -22,11 +22,15 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final UserService userService;
+    private final AwsS3Service awsS3Service;
 
     @Autowired
-    public BoardService(BoardRepository boardRepository, UserService userService) {
+    public BoardService(BoardRepository boardRepository,
+                        UserService userService,
+                        AwsS3Service awsS3Service) {
         this.boardRepository = boardRepository;
         this.userService = userService;
+        this.awsS3Service = awsS3Service;
     }
 
 
@@ -44,7 +48,7 @@ public class BoardService {
 
         User user = userService.getUser(userDetails);
 
-        Board board = boardDto.getBoard(user);
+        Board board = boardDto.getBoard(user, awsS3Service);
         boardRepository.save(board);
 
         return SuccessMessage.SUCCESS.getResponseEntity();
