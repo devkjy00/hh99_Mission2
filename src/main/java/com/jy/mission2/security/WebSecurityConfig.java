@@ -77,8 +77,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable()
-                .cors().configurationSource(corsConfigurationSource());
+        http.httpBasic().disable()
+            .csrf().disable()
+            .cors().configurationSource(corsConfigurationSource());
 
         http
                 .sessionManagement()
@@ -140,11 +141,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("POST,/h2-console/**");
         // 회원 관리 API 허용
 //        skipPathList.add("GET,/api/**");
+        skipPathList.add("GET,/api/boards");
         skipPathList.add("POST,/api/signup");
+        skipPathList.add("POST,/api/login");
 
         skipPathList.add("GET,/");
         skipPathList.add("GET,/basic.js");
-        skipPathList.add("GET,/api/boards");
 
 //        skipPathList.add("POST,/test");
 
