@@ -30,8 +30,7 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
 
     public JwtAuthFilter(
             RequestMatcher requestMatcher,
-            HeaderTokenExtractor extractor
-    ){
+            HeaderTokenExtractor extractor){
         super(requestMatcher);
         this.extractor = extractor;
         this.mapper = new ObjectMapper();
