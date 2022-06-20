@@ -22,12 +22,14 @@ public class LikeService {
     private final UserService userService;
     private final BoardService boardService;
 
+
     @Autowired
     public LikeService(LikeRepository likeRepository, UserService userService, BoardService boardService) {
         this.likeRepository = likeRepository;
         this.userService = userService;
         this.boardService = boardService;
     }
+
 
     @Transactional
     public ResponseEntity<String> toggleLike(

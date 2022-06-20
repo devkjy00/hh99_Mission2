@@ -2,10 +2,12 @@ package com.jy.mission2.model;
 
 
 import com.jy.mission2.dto.request.BoardDto;
+import com.jy.mission2.service.AwsS3Service;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.List;
@@ -44,18 +46,23 @@ public class Board extends TimeStamp{
     @Column
     private String content;
 
-    public void updateFields(BoardDto requestDto){
+    public void updateFields(BoardDto requestDto, AwsS3Service awsS3Service){
         String content      = requestDto.getContent();
-        String imgUrl       = requestDto.getImgUrl();
+        MultipartFile img = requestDto.getImg();
         Integer layoutType  = requestDto.getLayoutType();
 
         this.content    = Objects.nonNull(content)? content : this.content;
-        this.imgUrl     = Objects.nonNull(imgUrl)? imgUrl : this.imgUrl;
         this.layoutType = Objects.nonNull(layoutType)? layoutType : this.layoutType;
+
+        if (Objects.nonNull(img)) {
+            awsS3Service.deleteFile(this.imgUrl);
+            this.imgUrl = awsS3Service.uploadFile(img);
+        }
     }
 
     public void updateLikeQty(int num){
         likeQty += num;
     }
+
 }
 

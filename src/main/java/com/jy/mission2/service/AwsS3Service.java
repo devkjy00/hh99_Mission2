@@ -31,6 +31,7 @@ public class AwsS3Service {
         this.amazonS3 = amazonS3;
     }
 
+
     public String uploadFile(MultipartFile file){
         String fileName = createFileName(file.getOriginalFilename());
         ObjectMetadata objectMetadata = new ObjectMetadata();

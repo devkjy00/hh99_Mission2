@@ -20,6 +20,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -33,7 +34,7 @@ public class BoardDto {
     private Integer layoutType;
 
     @NotBlank(message = DtoMessage.EMPTY_IMG)
-    private MultipartFile imgUrl;
+    private MultipartFile img;
 
     @NotBlank(message = DtoMessage.EMPTY_CONTENT)
     private String content;
@@ -44,7 +45,7 @@ public class BoardDto {
                 .user(user)
                 .content(content)
                 .layoutType(layoutType)
-                .imgUrl(awsS3Service.uploadFile(imgUrl))
+                .imgUrl(Objects.nonNull(img)? awsS3Service.uploadFile(img) : null)
                 .likeQty(0)
                 .build();
     }

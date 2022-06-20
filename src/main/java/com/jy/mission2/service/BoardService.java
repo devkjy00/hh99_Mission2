@@ -26,6 +26,7 @@ public class BoardService {
     private final UserService userService;
     private final AwsS3Service awsS3Service;
 
+
     @Autowired
     public BoardService(BoardRepository boardRepository,
                         UserService userService,
@@ -43,6 +44,7 @@ public class BoardService {
         return BoardResponseDto.getDtoList(boardList);
     }
 
+
     @Transactional
     public ResponseEntity<String> addBoard(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
@@ -57,15 +59,19 @@ public class BoardService {
 
     }
 
+
     @Transactional
     public ResponseEntity<String> deleteBoard(
             UserDetailsImpl userDetails, Long boardId) {
 
         Board board = findByIdAndUserId(boardId, userDetails);
+
+        awsS3Service.deleteFile(board.getImgUrl());
         boardRepository.deleteById(board.getId());
 
         return SuccessMessage.SUCCESS.getResponseEntity();
     }
+
 
     @Transactional
     public ResponseEntity<String> updateBoard(
@@ -73,7 +79,7 @@ public class BoardService {
             UserDetailsImpl userDetails, Long boardId) {
 
         Board board = findByIdAndUserId(boardId, userDetails);
-        board.updateFields(requestDto);
+        board.updateFields(requestDto, awsS3Service);
 
         return SuccessMessage.SUCCESS.getResponseEntity();
     }
@@ -86,6 +92,7 @@ public class BoardService {
         return boardRepository.findByIdAndUserId(boardId, userDetails.getId())
                 .orElseThrow(() -> new DataNotFoundException(FailureMessage.NO_DATA_EXIST.getMessage()));
     }
+
 
     @Transactional(readOnly = true)
     public Board getBoardById(Long id) {

@@ -22,11 +22,13 @@ public class UserService {
     private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
 
+
     @Autowired
     public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
 
     @Transactional
     public ResponseEntity<String> signup(UserDto requestDto){
@@ -40,6 +42,7 @@ public class UserService {
 
         return SuccessMessage.SUCCESS.getResponseEntity();
     }
+
 
     @Transactional(readOnly = true)
     public User getUser(UserDetailsImpl userDetails){

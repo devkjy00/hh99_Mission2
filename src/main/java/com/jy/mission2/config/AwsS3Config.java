@@ -20,6 +20,8 @@ public class AwsS3Config {
     @Value("${cloud.aws.region.static}")
     private String region;
 
+    public static final String address = "southoftheriverbucket.s3.ap-northeast-2.amazonaws.com/";
+
     @Bean
     public AmazonS3Client amazonS3Client() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey, secretKey);
