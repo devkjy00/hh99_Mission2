@@ -19,26 +19,26 @@ public class Mission2Application {
         SpringApplication.run(Mission2Application.class, args);
     }
 
-
-    @Bean
-    public CommandLineRunner demo(BoardRepository boardRepository, UserRepository userRepository, BCryptPasswordEncoder encoder) {
-        return (args) -> {
-            System.out.println("ready");
-            User user = userRepository.save(
-                User.builder()
-                        .email("anwjsrlrhwkd@naver.com")
-                        .nickname("kkk123")
-                        .password(encoder.encode("abcde1234"))
-                        .build()
-            );
-
-            boardRepository.save(Board.builder()
-                    .layoutType(2)
-                    .imgUrl("1234")
-                    .content("1234")
-                    .user(user).build());
-
-        };
-    }
-
+//
+//    @Bean
+//    public CommandLineRunner demo(BoardRepository boardRepository, UserRepository userRepository, BCryptPasswordEncoder encoder) {
+//        return (args) -> {
+//            System.out.println("ready");
+//            User user = userRepository.save(
+//                User.builder()
+//                        .email("anwjsrlrhwkd@naver.com")
+//                        .nickname("kkk123")
+//                        .password(encoder.encode("abcde1234"))
+//                        .build()
+//            );
+//
+//            boardRepository.save(Board.builder()
+//                    .layoutType(2)
+//                    .imgUrl("1234")
+//                    .content("1234")
+//                    .user(user).build());
+//
+//        };
+//    }
+//
 }

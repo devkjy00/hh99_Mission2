@@ -48,7 +48,7 @@ public class BoardController {
     @PutMapping("/{boardId}")
     public ResponseEntity<String> updateBoard(
             @Validated(ValidationGroup.Update.class)
-            @RequestBody BoardDto requestDto,
+            @ModelAttribute BoardDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @PathVariable Long boardId) {
 
