@@ -26,16 +26,16 @@ public class Like extends TimeStamp{
     private Board board;
 
     @Column(nullable = false)
-    private Boolean like_status;
+    private Boolean likeStatus;
 
     public Like(User user, Board board) {
         this.user = user;
         this.board = board;
-        this.like_status = false;
+        this.likeStatus = false;
     }
 
     public Boolean toggle(){
-        like_status = !like_status;
-        return like_status;
+        like_status = !likeStatus;
+        return likeStatus;
     }
 }
