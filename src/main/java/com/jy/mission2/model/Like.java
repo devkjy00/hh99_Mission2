@@ -35,7 +35,7 @@ public class Like extends TimeStamp{
     }
 
     public Boolean toggle(){
-        like_status = !likeStatus;
+        likeStatus = !likeStatus;
         return likeStatus;
     }
 }
